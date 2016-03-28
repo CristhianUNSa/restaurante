@@ -1,18 +1,19 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Mesa Model
+ * Platillo Model
  *
- * @property Mesero $Mesero
+ * @property CategoriaPlatillo $CategoriaPlatillo
+ * @property Cocinero $Cocinero
  */
-class Mesa extends AppModel {
+class Platillo extends AppModel {
 
 /**
  * Display field
  *
  * @var string
  */
-	public $displayField = 'serie';
+	public $displayField = 'nombre';
 
 /**
  * Validation rules
@@ -20,7 +21,7 @@ class Mesa extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'serie' => array(
+		'nombre' => array(
 			'notBlank' => array(
 				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
@@ -29,20 +30,8 @@ class Mesa extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'unique' => array(
-				'rule' => array('isUnique'),
-				'message' => 'Esta serie ya existe en nuestra base de datos'
-			)
 		),
-		'puestos' => array(
+		'descripcion' => array(
 			'notBlank' => array(
 				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
@@ -51,6 +40,8 @@ class Mesa extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+		),
+		'precio' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -59,8 +50,16 @@ class Mesa extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 		),
-		'posicion' => array(
+		'categoria_platillo_id' => array(
 			'notBlank' => array(
 				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
@@ -80,12 +79,34 @@ class Mesa extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Mesero' => array(
-			'className' => 'Mesero',
-			'foreignKey' => 'mesero_id',
+		'CategoriaPlatillo' => array(
+			'className' => 'CategoriaPlatillo',
+			'foreignKey' => 'categoria_platillo_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		)
 	);
+
+/**
+ * hasAndBelongsToMany associations
+ *
+ * @var array
+ */
+	public $hasAndBelongsToMany = array(
+		'Cocinero' => array(
+			'className' => 'Cocinero',
+			'joinTable' => 'cocineros_platillos',
+			'foreignKey' => 'platillo_id',
+			'associationForeignKey' => 'cocinero_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		)
+	);
+
 }

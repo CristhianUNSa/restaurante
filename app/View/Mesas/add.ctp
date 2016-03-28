@@ -3,7 +3,7 @@
 		<div class="col-md-6">
 			<?php echo $this->Form->create('Mesa', array('role' => 'form')); ?>
 				<fieldset>
-					<legend><?php echo __('Add Mesa'); ?></legend>
+					<legend><?php echo __('Agregar Mesa'); ?></legend>
 				<?php
 					echo $this->Form->input('serie', array('class' => 'form-control', 'label' => 'Serie'));
 					echo $this->Form->input('puestos', array('class' => 'form-control', 'label' => 'Puestos'));
